@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SmartSeeder</id>
+    <version>0.0.1</version>
+    <title>SmartSeeder</title>
+    <authors>Adriano Flechilla</authors>
+    <owners>a.felchilla</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Used to apply the seeds of the application automatically following some conventions.</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>seed efcore database data</tags>
+  </metadata>
+</package>
