@@ -35,7 +35,7 @@ namespace SeedEngine.Core
                 var contextAssambly = typeof(T).Assembly;
 
                 if (!context.AllMigrationsApplied())
-                    throw new Exception("The migrations must be applied in order to run the Seeds.");
+                    context.Database.Migrate();
 
                 var seedInstances = contextAssambly.GetTypes()
                     .Where(type => type.GetInterfaces().Any(t => t == typeof(ISeed)))
