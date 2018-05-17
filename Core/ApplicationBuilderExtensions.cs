@@ -35,7 +35,7 @@ namespace SeedEngine.Core
                 var contextAssambly = typeof(T).Assembly;
 
                 if (!context.AllMigrationsApplied())
-                    throw new Exception("The migrations must be applied in order to run the Seeds.");
+                    context.Database.Migrate();
 
                 var seedInstances = contextAssambly.GetTypes()
                     .Where(type => type.GetInterfaces().Any(t => t == typeof(ISeed)))
@@ -61,7 +61,7 @@ namespace SeedEngine.Core
                         Log.Error(ex, $"Exception seeding in the seed class of name: {seedTuple.Item1.FullName}");
                     }
                 stopWatch.Stop();
-                Log.Debug($"Finished the seeding proccess after {stopWatch.Elapsed.Seconds}");
+                Log.Debug($"Finished the seeding process after {stopWatch.Elapsed.Seconds}");
                 context.Dispose();
             }
         }
