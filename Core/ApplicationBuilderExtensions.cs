@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SeedEngine.Utilities;
@@ -10,7 +11,7 @@ using Serilog;
 
 namespace SeedEngine.Core
 {
-    public static class ApplicationBuilderExtensions
+    public static class Seeder
     {
         /// <summary>
         ///     Discover all the classes that are used
@@ -19,14 +20,12 @@ namespace SeedEngine.Core
         ///     in each one.
         /// </summary>
         /// <typeparam name="T">The type of the context used to add the new objects.</typeparam>
-        /// <param name="app">The <see cref="IApplicationBuilder" /> that this method will extend.</param>
-        public static void EnsureSeedData<T>(this IApplicationBuilder app) where T : DbContext
+        /// <param name="app">The <see cref="IWebHost" /> that this method will extend.</param>
+        public static void EnsureSeedData<T>(IServiceScope scope) where T : DbContext
         {
-            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            using (var scope = scopeFactory.CreateScope())
-            {
+
+           
                 var context = scope.ServiceProvider.GetService(typeof(T)) as T;
-                //var context = app.ApplicationServices.GetService(typeof(T)) as T;
 
                 var stopWatch = new Stopwatch();
                 stopWatch.Start();
@@ -63,7 +62,6 @@ namespace SeedEngine.Core
                 stopWatch.Stop();
                 Log.Debug($"Finished the seeding process after {stopWatch.Elapsed.Seconds}");
                 context.Dispose();
-            }
         }
     }
 }
